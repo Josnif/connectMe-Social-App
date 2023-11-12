@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Entypo } from '@expo/vector-icons'
 import styles from './style'
 import * as ImagePicker from 'expo-image-picker'
+import { useRouter } from 'expo-router'
 
 const user = {
   id: "u1",
@@ -13,6 +14,7 @@ const user = {
 };
 
 const CreatePost = () => {
+  const router = useRouter();
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null)
   // const insets = useSafeAreaInsets();
@@ -20,6 +22,7 @@ const CreatePost = () => {
   const onPost = () => {
     console.log("Post: ", description);
     setDescription("");
+    router.push('/');
   }
 
   const pickImage = async () => {
@@ -30,9 +33,9 @@ const CreatePost = () => {
       quality: 1,
     })
 
-    console.log(result);
+    // console.log(result);
     if (!result.canceled) {
-      setImage(result.uri);
+      setImage(result.assets[0].uri);
     }
   }
 
